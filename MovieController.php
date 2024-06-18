@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    function addMovie(Request $req)
+    public function addMovie(Request $request)
     {
-             $movie = new Movie([
+        
+        $movie = new Movie([
             'title' => $request->title,
             'release' => $request->release,
             'length' => $request->length,
@@ -20,10 +21,13 @@ class MovieController extends Controller
             'performer' => json_encode($request->performer),
             'language' => json_encode($request->language),
         ]);
-    
 
         $movie->save();
 
-        return response()->json($movie, 201);
+        return response()->json([
+            'message' => "Successfully added movie {$movie->title} with Movie_ID {$movie->id}",
+            'success' => true
+        ], 201);
     }//
 }
+
