@@ -7,21 +7,9 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    public function addMovie(Request $request)
+    function addMovie(Request $req)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'release' => 'required|date',
-            'length' => 'required|integer',
-            'description' => 'required|string',
-            'mpaa_rating' => 'required|string|max:5',
-            'genre' => 'required|array',
-            'director' => 'required|array',
-            'performer' => 'required|array',
-            'language' => 'required|array',
-        ]);
-
-        $movie = new Movie([
+             $movie = new Movie([
             'title' => $request->title,
             'release' => $request->release,
             'length' => $request->length,
@@ -32,6 +20,7 @@ class MovieController extends Controller
             'performer' => json_encode($request->performer),
             'language' => json_encode($request->language),
         ]);
+    
 
         $movie->save();
 
